@@ -9,7 +9,6 @@
         tools:ignore="UnusedAttribute">
         <activity
             android:name=".OrangeActivity"
-            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 </manifest>

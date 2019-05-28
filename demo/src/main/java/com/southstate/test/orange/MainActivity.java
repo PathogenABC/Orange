@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadJS(View view) {
 //        String url = "http://10.0.2.2:8000/pages/MainPage.js";
 //        String url = "http://192.168.0.101:8000/pages/MainPage.js";
-        String url = "assets://orange.com/pages/MainPage.js";
+        String url = "assets://orange.com/StartPage.js";
         OrangeActivity.launch(this, url, null);
     }
 }

@@ -13,7 +13,7 @@ class StartPage extends Page {
         return (
             <linear style={styles.root} onClick={() => this.onClick()}>
 
-                <StatusBar id='title'/>
+                <StatusBar id='title' left='返回' title='Start'/>
 
                 <view id='view' style={styles.view} onClick={() => this.goNext()}/>
             </linear>
