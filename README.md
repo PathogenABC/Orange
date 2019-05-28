@@ -50,6 +50,8 @@ JS线程包含js的解释器[j2v8](https://github.com/eclipsesource/J2V8)，同�
 
 效果展示
 
-![StartPage](snapshot/StartPage.jsx.png) ![MainPage](snapshot/MainPage.jsx.jpg)
+![StartPage](snapshot/StartPage.jsx.png)
+
+![MainPage](snapshot/MainPage.jsx.jpg)
 
 主要技术：[javascript] [jsx] [j2v8] [android]
