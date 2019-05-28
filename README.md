@@ -49,6 +49,6 @@ JS线程包含js的解释器[j2v8](https://github.com/eclipsesource/J2V8)，同�
 如layoutWidth，gravity，backgroundColor，text，onClick
 
 效果展示 
-![avatar](snapshot/StartPage.jsx.png) ![avatar](snapshot/MainPage.jsx.png)
+![StartPage](snapshot/StartPage.jsx.png) ![MainPage](snapshot/MainPage.jsx.jpg)
 
 主要技术：[javascript] [jsx] [j2v8] [android]
