@@ -48,7 +48,8 @@ JS线程包含js的解释器[j2v8](https://github.com/eclipsesource/J2V8)，同�
 对应于Android本身的视图，由组合的属性确定视图的展示样式，
 如layoutWidth，gravity，backgroundColor，text，onClick
 
-效果展示 
+效果展示
+
 ![StartPage](snapshot/StartPage.jsx.png) ![MainPage](snapshot/MainPage.jsx.jpg)
 
 主要技术：[javascript] [jsx] [j2v8] [android]
