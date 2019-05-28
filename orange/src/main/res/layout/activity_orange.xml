@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrangeActivity">
+
+    <com.southstate.orange.OrangeView
+        android:id="@+id/orange_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.southstate.orange.widget.LoadingView
+        android:id="@+id/progress_bar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/pane_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_error_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="15sp"
+            tools:text="http://github.com/PathogenABC/alpha/DemoPage.js"/>
+
+        <TextView
+            android:id="@+id/btn_error_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sel_error_reload"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="加载失败，点击重试"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText"/>
+    </LinearLayout>
+</FrameLayout>
