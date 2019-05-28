@@ -10,19 +10,19 @@
 ##### 2. JS线程
 JS线程包含js的解释器[j2v8](https://github.com/eclipsesource/J2V8)，同时包含着各种执行环境，是一个消息循环线程。
 环境主要有：
-    - app
-    - ui
-    - storage
-    - http
-    - page
-    - timer
-    - page
+- app
+- ui
+- storage
+- http
+- page
+- timer
+- page
     
 ##### 3. 布局系统
 布局方式直接集成于Android系统的原生布局方式，如linearLayout, frameLayout, layoutWidth,layoutGravity等等
 
 ##### 4. 页面Page
- 一个Page代表一个页面，是一个JS文件，拥有完整的生命周期。其承载着整个视图树，同时集成这业务逻辑。Page由多个组件构成。
+ 一个Page代表一个页面，是一个JS文件，拥有完整的生命周期。其承载着整个视图树，同时包括业务逻辑。Page由多个组件构成。
 - onReady  页面视图渲染完毕
 - onShow   页面展示
 - onHide    页面隐藏
