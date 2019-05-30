@@ -71,9 +71,14 @@ public class JSThread extends HandlerThread {
     @Override
     public void run() {
         setDefaultUncaughtExceptionHandler((t, e) -> onThreadEnd(e));
-        v8 = V8.createV8Runtime();
+        initV8Runtime();
+
         super.run();
         onThreadEnd(null);
+    }
+
+    private void initV8Runtime() {
+        v8 = V8.createV8Runtime();
     }
 
     private void onThreadEnd(Throwable e) {
@@ -82,7 +87,7 @@ public class JSThread extends HandlerThread {
         NodeFactory.release();
         LibModule.release();
         if (v8 != null) {
-            v8.close();
+            v8.release(false);
             v8 = null;
         }
     }
@@ -112,9 +117,9 @@ public class JSThread extends HandlerThread {
         V8Object params = V8ObjectUtils.toV8Object(v8, entryJsParams);
 
         V8Object jsRootNode = new V8Object(v8);
-        mPage.install(pageUri, jsRootNode, params);
-
         mRootNode = new RootNode(mPageContext, jsRootNode);
+
+        mPage.install(pageUri, jsRootNode, params);
 
         jsRootNode.close();
         params.close();
@@ -152,14 +157,11 @@ public class JSThread extends HandlerThread {
     public void updateUI(Runnable uiRunnable) {
         Log.d("js-thread", "runnable = " + uiRunnable);
         synchronized (uiUpdateQueueInAFrame) {
-            uiUpdateQueueInAFrame.add(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        uiRunnable.run();
-                    } catch (Throwable e) {
-                        ErrorUtil.handleJsError(JSThread.this.getContext(), e);
-                    }
+            uiUpdateQueueInAFrame.add(() -> {
+                try {
+                    uiRunnable.run();
+                } catch (Throwable e) {
+                    ErrorUtil.handleJsError(JSThread.this.getContext(), e);
                 }
             });
         }

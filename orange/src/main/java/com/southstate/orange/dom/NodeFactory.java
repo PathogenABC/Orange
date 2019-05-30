@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class NodeFactory {
 
-    private static final String KEY_UNIQUE_REF = "___unique_ref_";
+    public static final String KEY_UNIQUE_REF = "___unique_ref_";
 
     private static final ThreadLocal<HashMap<String, Node<?>>> sThreadLocalNodeMap = new ThreadLocal<>();   // TODO: 2019/5/9 需要优化
     private static final ThreadLocal<Integer> sNextNodeUniqueRefIndex = new ThreadLocal<>();
@@ -76,7 +76,7 @@ public class NodeFactory {
         for (Node<?> nodeWr : localNodeMap.values()) {
             if (nodeWr != null) {
                 count++;
-                nodeWr.mJsNode.close();
+                nodeWr.release();
             }
         }
         localNodeMap.clear();

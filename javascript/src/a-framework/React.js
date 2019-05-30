@@ -655,6 +655,7 @@ export default {
             if (pageObj) {
                 pageObj.pageClose()
                 pageObj.__onViewDetached()
+                pageObj = null
             }
         })
     }

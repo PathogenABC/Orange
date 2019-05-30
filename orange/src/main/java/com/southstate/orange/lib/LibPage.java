@@ -9,13 +9,13 @@ import com.eclipsesource.v8.utils.V8ObjectUtils;
 import com.southstate.orange.Orange;
 import com.southstate.orange.OrangeView;
 import com.southstate.orange.context.PageContext;
-import com.southstate.orange.dom.RootNode;
 import com.southstate.orange.util.PageUri;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -54,7 +54,16 @@ public class LibPage {
             Set<V8Function> set = eventHandlerMap.get(event);
             if (set != null) {
                 V8Function func = (V8Function) v8Array.get(1);
-                set.remove(func);
+                Iterator<V8Function> it = set.iterator();
+                while (it.hasNext()) {
+                    V8Function next = it.next();
+                    if (func.equals(next)) {
+                        it.remove();
+                        next.close();
+                        break;
+                    }
+                }
+                func.close();
             }
         }, "off");
         page.registerJavaMethod((v8Object, v8Array) -> {
@@ -62,6 +71,7 @@ public class LibPage {
             V8Object paramsObj = v8Array.getObject(1);
             Map<String, ? super Object> stringMap = V8ObjectUtils.toMap(paramsObj);
             String paramJson = new JSONObject(stringMap).toString();
+            paramsObj.close();
 
             String realUrl;
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
@@ -80,7 +90,9 @@ public class LibPage {
             String resultJson;
             double type = v8Array.getType(0);
             if (type == V8Object.V8_OBJECT) {
-                JSONObject jsonArray = new JSONObject(V8ObjectUtils.toMap(v8Array.getObject(0)));
+                V8Object object = v8Array.getObject(0);
+                JSONObject jsonArray = new JSONObject(V8ObjectUtils.toMap(object));
+                object.close();
                 resultJson = jsonArray.toString();
             } else if (v8Array.length() > 0) {
                 throw new IllegalArgumentException("back function accepts json an object argument or no args");
@@ -123,6 +135,14 @@ public class LibPage {
         if (set != null) {
             for (V8Function f : set) {
                 f.call(null, null);
+            }
+        }
+    }
+
+    public void release() {
+        for (Set<V8Function> set : eventHandlerMap.values()) {
+            for (V8Function function : set) {
+                function.close();
             }
         }
     }

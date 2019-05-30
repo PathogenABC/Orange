@@ -43,7 +43,6 @@ public abstract class Node<T extends View> {
 
     private T mView;
     private IView mIView;
-    V8Object mJsNode;
 
     GroupNode<?> mParent;
     boolean mAttachedToWindow;
@@ -55,7 +54,6 @@ public abstract class Node<T extends View> {
 
     public Node(PageContext pc, V8Object jsNode) {
         mPageContext = pc;
-        mJsNode = jsNode.twin();
 
         mView = createView(pc.getContext());
         mIView = (IView) mView;
@@ -308,16 +306,8 @@ public abstract class Node<T extends View> {
         return mParent;
     }
 
-    protected V8Object getJSNode() {
-        return mJsNode;
-    }
-
     @CallSuper
     public void release() {
-        if (!mJsNode.isReleased()) {
-            mJsNode.close();
-        }
-
         for (Map.Entry<String, Object> e : mAttributes.entrySet()) {
             V8Util.close(e.getValue());
         }
